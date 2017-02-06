@@ -1,0 +1,589 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Math341_H4</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-01-31"><meta name="DC.source" content="Math341_H4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Section 2.6 #4a</a></li><li><a href="#3">Section 2.6 #5a</a></li><li><a href="#4">Section 3.1 #1a</a></li><li><a href="#5">Section 3.1 #3a</a></li><li><a href="#6">Section 3.1 #5a</a></li><li><a href="#7">Section 3.1 #17</a></li><li><a href="#8">Programing Problem - Dived Difference Coefficients</a></li><li><a href="#9">Section 3.3 #1a</a></li><li><a href="#10">Section 3.3 #7 (a and b)</a></li><li><a href="#11">Section 3.3 #11</a></li><li><a href="#12">Section 3.3 #17</a></li></ul></div><pre class="codeinput"><span class="comment">%Caleb Bibb</span>
+<span class="comment">%MATH 341 H4</span>
+</pre><h2 id="2">Section 2.6 #4a</h2><pre class="codeinput"><span class="comment">%Fund approximations to within 10^(-5) to all the zeros of each of the</span>
+<span class="comment">%following polynomials using Muller's method.</span>
+clear <span class="string">all</span>
+syms <span class="string">x</span>
+f=x^4+5*x^3-9*x^2-85*x-136; <span class="comment">% Our functions</span>
+p0 = -4; <span class="comment">% Initial guess 1</span>
+p1 = -1; <span class="comment">% Initial guess 2</span>
+p2 = 4; <span class="comment">% Initial guess 3</span>
+TOL = 10^(-5); <span class="comment">% Our Tolerance</span>
+N = 1000; <span class="comment">% Maximum Number of iterations</span>
+
+i = 3;
+h1 = p1-p0;
+h2 = p2-p1;
+Delta1 = (double(subs(f, x, p1))-double(subs(f, x, p0)))/h1;
+Delta2 = (double(subs(f, x, p2))-double(subs(f, x, p1)))/h2;
+a = (Delta2-Delta1)/(h2-h1);
+
+<span class="keyword">for</span> k = 1:4
+    <span class="keyword">while</span> i&lt;N
+    b = Delta2-h2*a;
+    D =(b^2-4*a*(double(subs(f, x, p2))))^(1/2);
+    <span class="keyword">if</span> abs(b-D)&lt;abs(b+D)
+        E = b+D;
+    <span class="keyword">else</span>
+        E = b-D;
+    <span class="keyword">end</span>
+    h = (double(subs(f, x, p2))*(-2))/E;
+    p = p2+h;
+    <span class="keyword">if</span> abs(h)&lt;TOL
+        disp([<span class="string">'One of the roots is '</span> num2str(p) <span class="string">' in #4a'</span>])
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+    p0 = p1;
+    p1 = p2;
+    p2 = p;
+    h1 = p1-p0;
+    h2 = p2-p1;
+    Delta1 = (double(subs(f, x, p1))-double(subs(f, x, p0)))/h1;
+    Delta2 = (double(subs(f, x, p2))-double(subs(f, x, p1)))/h2;
+    a = (Delta2-Delta1)/(h2-h1);
+    i = i+1;
+    <span class="keyword">end</span>
+    div = p;
+    f = simplify(f/(x-div));
+    k = k+1;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">One of the roots is 4.1231 in #4a
+One of the roots is -4.1231 in #4a
+One of the roots is -2.5-1.3229i in #4a
+One of the roots is -2.5+1.3229i in #4a
+</pre><h2 id="3">Section 2.6 #5a</h2><p>Use Newton's Method to find, within 10^-3 the zeros and critical points of the following function. f(x) = x^3-9*x^2+12</p><pre class="codeinput">clear <span class="string">all</span>
+syms <span class="string">x</span>
+f = x^3-9*x^2+12; <span class="comment">% Our function</span>
+a = 1; <span class="comment">% Our initial guess</span>
+TOL = 10^-3; <span class="comment">% Our Tolerance</span>
+I = 1000; <span class="comment">% Maximum number of iterations</span>
+n = 1; <span class="comment">% Current Iteration Number</span>
+h = f;
+<span class="keyword">for</span> k = 1:3
+    dh = diff(h);
+    <span class="keyword">while</span> n &lt; I
+    b = a - double(subs(h, x, a))/double(subs(dh, x, a));
+    <span class="keyword">if</span> abs(a-b)&lt;TOL
+        Ans = [<span class="string">'For 5a, There is a zero at '</span>, num2str(b)];
+        disp(Ans)
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+    a = b;
+    i = i+1;
+    <span class="keyword">end</span>
+    h = simplify(h/(x-b));
+    k = k+1;
+<span class="keyword">end</span>
+f = x^3-9*x^2+12; <span class="comment">% Our function</span>
+j = diff(f);
+<span class="keyword">for</span> k = 1:2
+    dh = diff(j);
+    <span class="keyword">while</span> n &lt; I
+        b = a - single(subs(j, x, a))/single(subs(dh, x, a));
+        <span class="keyword">if</span> abs(a-b)&lt;TOL
+            Ans = [<span class="string">'For 5a, There is a critical point at '</span>, num2str(b)];
+            disp(Ans)
+            <span class="keyword">break</span>
+        <span class="keyword">end</span>
+        a = b;
+        i = i+1;
+    <span class="keyword">end</span>
+    j = simplify(j/(x-b));
+    k = k+1;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">For 5a, There is a zero at 1.2438
+For 5a, There is a zero at 8.8467
+For 5a, There is a zero at -1.0905
+For 5a, There is a critical point at -5.6843e-13
+For 5a, There is a critical point at 6
+</pre><h2 id="4">Section 3.1 #1a</h2><p>f(x) = cos(x), x0 = 0, x1 = 0.6, x2 = 0.9 approx f(0.45) using interpolation polynomials of of degree 1 and 2 and find the absolute error</p><pre class="codeinput"><span class="comment">% f(x) = cos(x):    at  x=0,    x=1,    x=2</span>
+<span class="comment">% yi = f(xi):       is  f(x0)   f(x1)   f(x2)</span>
+<span class="comment">%        =&gt;         cos(0)     cos(.6)  cos(.9)</span>
+clear <span class="string">all</span>
+syms <span class="string">x</span>
+f = cos(x);
+a = double(subs(f, x, 0))
+b = double(subs(f, x, .6))
+c = double(subs(f, x, .9))
+<span class="comment">% This makes our three points: (0,1), (.6, .8253), (.9, .6216)</span>
+<span class="comment">% We need to find L1,0(x) and L1,1(x) to find P1(x)</span>
+L10 = (x-.6)/(0-.6)
+L11 = (x-0)/(.6-0)
+P1 = a*L10 + b*L11
+<span class="comment">% Absolute Error = |f(x) -P1(x)|</span>
+AbsoluteError = abs(double(subs(f, x, .45))-double(subs(P1, x, .45)))
+</pre><pre class="codeoutput">
+a =
+
+     1
+
+
+b =
+
+    0.8253
+
+
+c =
+
+    0.6216
+
+ 
+L10 =
+ 
+                         -1.666666667 x + 1.000000000
+ 
+L11 =
+ 
+                                 1.666666667 x
+ 
+P1 =
+ 
+                         -0.291107309 x + 1.000000000
+
+AbsoluteError =
+
+    0.0314
+
+</pre><h2 id="5">Section 3.1 #3a</h2><p>Use Theorem 3.3 to find an error bound for #1a</p><h2 id="6">Section 3.1 #5a</h2><p>Use Lagrange interpolating polynomials of degrees one, two, and three to approximate f(8.4) if f(8.1) = 16.94410, f(8.3) = 17.56492, f(8.6) = 18.50515, f(8.7) = 18.82091</p><h2 id="7">Section 3.1 #17</h2><p>Suppose you need to construct eight-decimal-place tables for the common, or base-10, logarithm function from x=1 to x=10 in such a way that linear interpolation is accurate to within 10^(-6).  Determine a bound for the step size for this table. What choice of step size would you make to ensure that x=10 is included in the table?</p><h2 id="8">Programing Problem - Dived Difference Coefficients</h2><p>function [D, P] = divDiffTable(xv,y) xv and y are vectors where f(xv) = y.</p><pre class="codeinput"><span class="comment">%Output: D = matrix containing divided-difference coefficients in</span>
+<span class="comment">%its lower triangle.</span>
+<span class="comment">% syms x;</span>
+<span class="comment">% n = length(y);</span>
+<span class="comment">% if length(xv)~=n</span>
+<span class="comment">%     error('xv and y are not the same length');</span>
+<span class="comment">% end</span>
+<span class="comment">%</span>
+<span class="comment">% D = zeros(n,n);</span>
+<span class="comment">% P = sym(zeros(n,n));</span>
+<span class="comment">% D(:,1) = y(:); % First column is zeroth order difference, f[x_i] = y_i</span>
+<span class="comment">% for j=2:n</span>
+<span class="comment">%     for i=j:n</span>
+<span class="comment">%         D(i,j) = (D(i,j-1)-D(i-1,j-1))/(xv(i)-xv(i-j+1));</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+<span class="comment">% for i=1:n</span>
+<span class="comment">%     if i == 1</span>
+<span class="comment">%         P(1)=D(1,1);</span>
+<span class="comment">%     else</span>
+<span class="comment">%     P(i) = D(i,i)*prod(x-xv(1:i))+P(i-1);</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+</pre><h2 id="9">Section 3.3 #1a</h2><p>Use Eq. (3.10) or Algorithm 3.2 to construct interpolating polynomials of degree one, two, and three for f(8.4) if f(8.1) = 16.94410, f(8.3) = 17.56492, f(8.6) = 18.50515, f(8.7) = 18.82091 Time to take out our new program for a spin.</p><pre class="codeinput">clear <span class="string">all</span>
+[D,P] = divDiffTable([8.1 8.3 8.6 8.7], [16.94410 17.56492 18.50515 18.82091])
+<span class="comment">% We can see that P1 = 16.9440999999999998+3.10409999(x-8.1)</span>
+clear <span class="string">all</span>
+syms <span class="string">x</span>
+P0 = 16.9440999999999988
+P1 = P0+3.10409999999999320*(x-8.1);
+P2 = P1+0.0600000000000333600*(x-8.1)*(x-8.3);
+P3 = P2 +-0.00208333333334478552*(x - 8.1000000)*(x - 8.300)*(x - 8.6000)
+
+P184 = double(subs(P1, x, 8.4));
+P284 = double(subs(P2, x, 8.4));
+P384 = double(subs(P3, x, 8.4));
+disp([<span class="string">'P1(8.4) = '</span>, P184,<span class="string">' P2(8.4) = '</span>, P284,<span class="string">' P3(8.4) = '</span>, P384]);
+</pre><pre class="codeoutput">
+D =
+
+   16.9441         0         0         0
+   17.5649    3.1041         0         0
+   18.5052    3.1341    0.0600         0
+   18.8209    3.1576    0.0588   -0.0021
+
+ 
+P =
+ 
+        [16.9440999999999988 , 0 , 0 , 0]
+
+        [3.10409999999999320 %1 + 16.9440999999999988 , 0 , 0 , 0]
+
+        [0.0600000000000333600
+
+        (x - 8.10000000000000) (x - 8.30000000000000) (x - 8.60000000000000)
+
+         + 3.10409999999999320 %1 + 16.9440999999999988 , 0 , 0 , 0]
+
+        [-0.00208333333334478552 (x - 8.10000000000000) (x - 8.30000000000000)
+
+        (x - 8.60000000000000) (x - 8.70000000000000) + 0.0600000000000333600
+
+        (x - 8.10000000000000) (x - 8.30000000000000) (x - 8.60000000000000)
+
+         + 3.10409999999999320 %1 + 16.9440999999999988 , 0 , 0 , 0]
+
+  %1 := (x - 8.10000000000000) (x - 8.30000000000000)
+
+P0 =
+
+   16.9441
+
+ 
+P3 =
+ 
+  3.10409999999999320 x - 8.19911000
+
+         + (x - 8.30000000000000071) (0.0600000000000333600 x - 0.4860000000)
+
+         + (x - 8.59999999999999964) (x - 8.30000000000000071)
+
+        (-0.00208333333334478552 x + 0.01687500000)
+P1(8.4) =  P2(8.4) =  P3(8.4) = 
+</pre><h2 id="10">Section 3.3 #7 (a and b)</h2><p>Use Algorithm 3.2 to construct the interpolating polynomial of degree three for the unequally spaced points given in the following table: f(-.1)=5.30000, f(0)=2.00000, f(.2)=3.19000, f(.3)=1.00000 b) Add f(.35)=.97260 to the table, and construct the interpolating polynomial of degree four.</p><pre class="codeinput">[D,P] = divDiffTable([-.1 0 .2 .3],[5.30000 2.00000 3.19000 1.00000])
+<span class="comment">% We can see that P3(x) = 5.2999999+(-32.9999999)*(x</span>
+<span class="comment">% +0.1000)+129.83333333*(x + 0.1000)*x-556.666666*(x+.1000)*x*(x-.20000)</span>
+[D,P] = divDiffTable([-.1 0 .2 .3 .35],[5.30000 2.00000 3.19000 1.00000 .97260])
+<span class="comment">% We can see that P4(x) = P3(x)+</span>
+<span class="comment">% 2730.24338624338679(x+.100)(x)(x-.200)(x-.300)</span>
+</pre><pre class="codeoutput">
+D =
+
+    5.3000         0         0         0
+    2.0000  -33.0000         0         0
+    3.1900    5.9500  129.8333         0
+    1.0000  -21.9000  -92.8333 -556.6667
+
+ 
+P =
+ 
+        [5.29999999999999982 , 0 , 0 , 0]
+
+        [-32.9999999999999929 (x + 0.100000000000000) x + 5.29999999999999982
+
+        , 0 , 0 , 0]
+
+        [129.833333333333286 (x + 0.100000000000000) x (x - 0.200000000000000)
+
+         - 32.9999999999999929 (x + 0.100000000000000) x + 5.29999999999999982
+
+        , 0 , 0 , 0]
+
+        [-556.666666666666515 (x + 0.100000000000000) x
+
+        (x - 0.200000000000000) (x - 0.300000000000000) + 129.833333333333286
+
+        (x + 0.100000000000000) x (x - 0.200000000000000)
+
+         - 32.9999999999999929 (x + 0.100000000000000) x + 5.29999999999999982
+
+        , 0 , 0 , 0]
+
+D =
+
+   1.0e+03 *
+
+    0.0053         0         0         0         0
+    0.0020   -0.0330         0         0         0
+    0.0032    0.0059    0.1298         0         0
+    0.0010   -0.0219   -0.0928   -0.5567         0
+    0.0010   -0.0005    0.1423    0.6719    2.7302
+
+ 
+P =
+ 
+        [5.29999999999999982 , 0 , 0 , 0 , 0]
+
+        [-32.9999999999999929 %1 + 5.29999999999999982 , 0 , 0 , 0 , 0]
+
+        [129.833333333333286 %2 - 32.9999999999999929 %1 + 5.29999999999999982
+
+        , 0 , 0 , 0 , 0]
+
+        [-556.666666666666515 (x + 0.100000000000000) x
+
+        (x - 0.200000000000000) (x - 0.300000000000000)
+
+         + 129.833333333333286 %2 - 32.9999999999999929 %1
+
+         + 5.29999999999999982 , 0 , 0 , 0 , 0]
+
+        [2730.24338624338679 (x + 0.100000000000000) x (x - 0.200000000000000)
+
+        (x - 0.300000000000000) (x - 0.350000000000000) - 556.666666666666515
+
+        (x + 0.100000000000000) x (x - 0.200000000000000)
+
+        (x - 0.300000000000000) + 129.833333333333286 %2
+
+         - 32.9999999999999929 %1 + 5.29999999999999982 , 0 , 0 , 0 , 0]
+
+  %1 := (x + 0.100000000000000) x
+
+  %2 := (x + 0.100000000000000) x (x - 0.200000000000000)
+</pre><h2 id="11">Section 3.3 #11</h2><p>Show that the cubic polynomials both interpolate the data</p><pre class="codeinput">clear <span class="string">all</span>
+x=-10:0.5:10;
+P= 3-2.*(x+1)+0.*(x+1).*(x)+(x+1).*(x).*(x-1);
+Q= -1+4.*(x+2)-3.*(x+2).*(x+1)+(x+2).*(x+1).*(x);
+figure(3);plot(x,P,x,Q,<span class="string">'--'</span>);grid <span class="string">on</span>;
+title(<span class="string">'Showing that both polynomials interpolate the same data'</span>);
+</pre><img vspace="5" hspace="5" src="Math341_H4_01.png" alt=""> <h2 id="12">Section 3.3 #17</h2><p>For a function f, the forward-divided differences are given by the table.</p><p>What we're given: x2 = .7, f[x2] = 6, f[x1,x2] = 10, f[x0, x1, x2] = 50/7, x1 = .4, x0 = 0.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Caleb Bibb
+%MATH 341 H4
+
+%% Section 2.6 #4a
+%Fund approximations to within 10^(-5) to all the zeros of each of the
+%following polynomials using Muller's method.
+clear all
+syms x
+f=x^4+5*x^3-9*x^2-85*x-136; % Our functions
+p0 = -4; % Initial guess 1
+p1 = -1; % Initial guess 2
+p2 = 4; % Initial guess 3
+TOL = 10^(-5); % Our Tolerance
+N = 1000; % Maximum Number of iterations
+
+i = 3;
+h1 = p1-p0;
+h2 = p2-p1;
+Delta1 = (double(subs(f, x, p1))-double(subs(f, x, p0)))/h1;
+Delta2 = (double(subs(f, x, p2))-double(subs(f, x, p1)))/h2;
+a = (Delta2-Delta1)/(h2-h1);
+
+for k = 1:4
+    while i<N
+    b = Delta2-h2*a;
+    D =(b^2-4*a*(double(subs(f, x, p2))))^(1/2);
+    if abs(b-D)<abs(b+D)
+        E = b+D;
+    else
+        E = b-D;
+    end 
+    h = (double(subs(f, x, p2))*(-2))/E;
+    p = p2+h;
+    if abs(h)<TOL
+        disp(['One of the roots is ' num2str(p) ' in #4a'])
+        break 
+    end
+    p0 = p1;
+    p1 = p2;
+    p2 = p;
+    h1 = p1-p0;
+    h2 = p2-p1;
+    Delta1 = (double(subs(f, x, p1))-double(subs(f, x, p0)))/h1;
+    Delta2 = (double(subs(f, x, p2))-double(subs(f, x, p1)))/h2;
+    a = (Delta2-Delta1)/(h2-h1);
+    i = i+1;
+    end
+    div = p;
+    f = simplify(f/(x-div));
+    k = k+1;
+end 
+%% Section 2.6 #5a
+% Use Newton's Method to find, within 10^-3 the zeros and critical points
+% of the following function. f(x) = x^3-9*x^2+12
+clear all
+syms x
+f = x^3-9*x^2+12; % Our function
+a = 1; % Our initial guess
+TOL = 10^-3; % Our Tolerance
+I = 1000; % Maximum number of iterations
+n = 1; % Current Iteration Number
+h = f;
+for k = 1:3
+    dh = diff(h);
+    while n < I
+    b = a - double(subs(h, x, a))/double(subs(dh, x, a));
+    if abs(a-b)<TOL
+        Ans = ['For 5a, There is a zero at ', num2str(b)];
+        disp(Ans)
+        break
+    end
+    a = b;
+    i = i+1;
+    end
+    h = simplify(h/(x-b)); 
+    k = k+1;
+end
+f = x^3-9*x^2+12; % Our function
+j = diff(f);
+for k = 1:2
+    dh = diff(j);
+    while n < I
+        b = a - single(subs(j, x, a))/single(subs(dh, x, a));
+        if abs(a-b)<TOL
+            Ans = ['For 5a, There is a critical point at ', num2str(b)];
+            disp(Ans)
+            break
+        end
+        a = b;
+        i = i+1;
+    end
+    j = simplify(j/(x-b));
+    k = k+1;
+end
+
+%% Section 3.1 #1a
+% f(x) = cos(x), x0 = 0, x1 = 0.6, x2 = 0.9
+% approx f(0.45) using interpolation polynomials of of degree 1 and 2 and
+% find the absolute error
+
+% f(x) = cos(x):    at  x=0,    x=1,    x=2
+% yi = f(xi):       is  f(x0)   f(x1)   f(x2)
+%        =>         cos(0)     cos(.6)  cos(.9)
+clear all
+syms x
+f = cos(x);
+a = double(subs(f, x, 0))
+b = double(subs(f, x, .6))
+c = double(subs(f, x, .9))
+% This makes our three points: (0,1), (.6, .8253), (.9, .6216)
+% We need to find L1,0(x) and L1,1(x) to find P1(x)
+L10 = (x-.6)/(0-.6)
+L11 = (x-0)/(.6-0)
+P1 = a*L10 + b*L11
+% Absolute Error = |f(x) -P1(x)|
+AbsoluteError = abs(double(subs(f, x, .45))-double(subs(P1, x, .45)))
+
+%% Section 3.1 #3a
+% Use Theorem 3.3 to find an error bound for #1a
+%
+%
+%% Section 3.1 #5a
+% Use Lagrange interpolating polynomials of degrees one, two, and three to approximate
+% f(8.4) if f(8.1) = 16.94410, f(8.3) = 17.56492, f(8.6) = 18.50515, f(8.7) = 18.82091
+%
+%% Section 3.1 #17
+% Suppose you need to construct eight-decimal-place tables for the common, or base-10, logarithm function from x=1 to x=10 in such a way that linear interpolation is accurate to within 10^(-6).  Determine a bound for the step size for this table. What choice of step size would you make to ensure that x=10 is included in the table?
+%
+%
+%% Programing Problem - Dived Difference Coefficients
+% function [D, P] = divDiffTable(xv,y)
+% xv and y are vectors where f(xv) = y.
+
+%Output: D = matrix containing divided-difference coefficients in
+%its lower triangle.
+% syms x;
+% n = length(y);
+% if length(xv)~=n 
+%     error('xv and y are not the same length'); 
+% end
+% 
+% D = zeros(n,n);
+% P = sym(zeros(n,n));
+% D(:,1) = y(:); % First column is zeroth order difference, f[x_i] = y_i
+% for j=2:n
+%     for i=j:n
+%         D(i,j) = (D(i,j-1)-D(i-1,j-1))/(xv(i)-xv(i-j+1));
+%     end
+% end
+% for i=1:n
+%     if i == 1
+%         P(1)=D(1,1);
+%     else
+%     P(i) = D(i,i)*prod(x-xv(1:i))+P(i-1);
+%     end
+% end
+%% Section 3.3 #1a
+% Use Eq. (3.10) or Algorithm 3.2 to construct interpolating polynomials of degree one, two, and three for f(8.4) if f(8.1) = 16.94410, f(8.3) = 17.56492, f(8.6) = 18.50515, f(8.7) = 18.82091
+% Time to take out our new program for a spin.
+clear all
+[D,P] = divDiffTable([8.1 8.3 8.6 8.7], [16.94410 17.56492 18.50515 18.82091])
+% We can see that P1 = 16.9440999999999998+3.10409999(x-8.1)
+clear all
+syms x
+P0 = 16.9440999999999988
+P1 = P0+3.10409999999999320*(x-8.1);
+P2 = P1+0.0600000000000333600*(x-8.1)*(x-8.3);
+P3 = P2 +-0.00208333333334478552*(x - 8.1000000)*(x - 8.300)*(x - 8.6000)
+
+P184 = double(subs(P1, x, 8.4));
+P284 = double(subs(P2, x, 8.4));
+P384 = double(subs(P3, x, 8.4));
+disp(['P1(8.4) = ', P184,' P2(8.4) = ', P284,' P3(8.4) = ', P384]);
+%% Section 3.3 #7 (a and b)
+% Use Algorithm 3.2 to construct the interpolating polynomial of degree three for the unequally spaced points given in the following table: f(-.1)=5.30000, f(0)=2.00000, f(.2)=3.19000, f(.3)=1.00000
+% b) Add f(.35)=.97260 to the table, and construct the interpolating polynomial of degree four.
+[D,P] = divDiffTable([-.1 0 .2 .3],[5.30000 2.00000 3.19000 1.00000])
+% We can see that P3(x) = 5.2999999+(-32.9999999)*(x
+% +0.1000)+129.83333333*(x + 0.1000)*x-556.666666*(x+.1000)*x*(x-.20000)
+[D,P] = divDiffTable([-.1 0 .2 .3 .35],[5.30000 2.00000 3.19000 1.00000 .97260])
+% We can see that P4(x) = P3(x)+
+% 2730.24338624338679(x+.100)(x)(x-.200)(x-.300)
+%% Section 3.3 #11
+% Show that the cubic polynomials both interpolate the data
+clear all
+x=-10:0.5:10;
+P= 3-2.*(x+1)+0.*(x+1).*(x)+(x+1).*(x).*(x-1);
+Q= -1+4.*(x+2)-3.*(x+2).*(x+1)+(x+2).*(x+1).*(x);
+figure(3);plot(x,P,x,Q,'REPLACE_WITH_DASH_DASH');grid on;
+title('Showing that both polynomials interpolate the same data');
+%% Section 3.3 #17
+% For a function f, the forward-divided differences are given by the table.
+%
+% What we're given: x2 = .7, f[x2] = 6, f[x1,x2] = 10, f[x0, x1, x2] =
+% 50/7, x1 = .4, x0 = 0.
+%
+%
+%
+%
+%
+%
+##### SOURCE END #####
+--></body></html>
