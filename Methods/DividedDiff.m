@@ -1,3 +1,4 @@
+% Function that finds the divided differences
 function [Y] =DividedDiff(funct, xvals)
 syms x
 
