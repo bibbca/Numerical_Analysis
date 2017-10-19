@@ -82,7 +82,7 @@ disp(Oops);
 end
 
 %% Section 2.3 #15
-%The following describes Newton’s method graphically: Suppose that f'(x) exists on [a, b] 
+%The following describes Newtonâ€™s method graphically: Suppose that f'(x) exists on [a, b] 
 %and that f'(x)!= 0 on [a,b]. Further, suppose there exists one p ? [a, b] such that f(p) = 0,
 %and let p0 ? [a, b] be arbitrary. Let p1 be the point at which the tangent line to f at
 %p0, f(p0)) crosses the x-axis. For each n ? 1, let pn be the x-intercept of the line tangent 
@@ -182,7 +182,7 @@ end
 %Remember to use Newton's method combined with Horner's method and
 %deflation
 %Find approximations to within 10^?5 to all the zeros of each of the following polynomials 
-%by first finding the real zeros using Newton’s method and then reducing to polynomials of lower degree to determine 
+%by first finding the real zeros using Newtonâ€™s method and then reducing to polynomials of lower degree to determine 
 %any complex zeros.
 %f(x)=x^4+5x^3-9x^2-85x-136
 
